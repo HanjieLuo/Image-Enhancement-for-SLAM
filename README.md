@@ -1,5 +1,4 @@
-# Image-Enhancement-for-SLAM
-Image Enhancement for SLAM
+# Image Enhancement for SLAM
 
 在使用Semi-direct Method跑Euroc Dataset的v103数据时，发现效果很不好。导致错误的主要的原因有：图片太暗，对比度太低；图片亮度变化很大（不限于帧间，左右目有时候也会出现亮度不一致的情况）。于是，需要对输入图像进行预处理，提高图片的对比度，并且使得进行跟踪的两张图片亮度一致。
 
