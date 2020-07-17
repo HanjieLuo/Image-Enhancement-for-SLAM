@@ -40,6 +40,7 @@ Input image:
 Output image:
 ![input image](https://github.com/HanjieLuo/Image-Enhancement-for-SLAM/blob/master/data/3_enhanced.png)
 
+Test for Semi-direct Method in Euroc Dataset
 [![](http://img.youtube.com/vi/bfZfZQ-2KLs/0.jpg)](http://www.youtube.com/watch?v=bfZfZQ-2KLs "Image Enhancement for SLAM")
 
 ## Contact information ##
