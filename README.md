@@ -43,13 +43,13 @@ Input image:
 Output image:  
 ![input image](https://github.com/HanjieLuo/Image-Enhancement-for-SLAM/blob/master/data/3_enhanced.png)
 
-Test in underground parking lot dataset:
+Test in underground parking lot dataset:  
 [![](http://img.youtube.com/vi/rnttLhYdGiE/0.jpg)](http://www.youtube.com/watch?v=rnttLhYdGiE "")
 
-Test in Euroc dataset V1_03_difficult:
+Test in Euroc dataset V1_03_difficult:  
 [![](http://img.youtube.com/vi/T9_IqWa4mJI/0.jpg)](http://www.youtube.com/watch?v=T9_IqWa4mJI "")
 
-Test for semi-direct method in Euroc dataset: 
+Test for semi-direct method in Euroc dataset:  
 [![](http://img.youtube.com/vi/bfZfZQ-2KLs/0.jpg)](http://www.youtube.com/watch?v=bfZfZQ-2KLs "Image Enhancement for SLAM")
 
 ## Contact information ##
