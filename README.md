@@ -10,7 +10,6 @@
 Papers Describing the Approach:
 
 罗汉杰. 图像增强方法、装置、计算机设备和存储介质 [P]. 中国专利: CN109801244A,2019-05-24.
-
 http://www.luohanjie.com/2018-11-01/image-enhancement-for-slam.html  
 http://www.luohanjie.com/2020-07-17/image-enhancement-algorithm-for-slam.html
 
@@ -44,13 +43,13 @@ Output image:
 ![input image](https://github.com/HanjieLuo/Image-Enhancement-for-SLAM/blob/master/data/3_enhanced.png)
 
 Test in underground parking lot dataset:  
-[![](http://img.youtube.com/vi/rnttLhYdGiE/0.jpg)](http://www.youtube.com/watch?v=rnttLhYdGiE "")
+[![Test in underground parking lot dataset](https://res.cloudinary.com/marcomontalbano/image/upload/v1612585629/video_to_markdown/images/youtube--rnttLhYdGiE-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/rnttLhYdGiE "Test in underground parking lot dataset")
 
 Test in Euroc dataset V1_03_difficult:  
-[![](http://img.youtube.com/vi/T9_IqWa4mJI/0.jpg)](http://www.youtube.com/watch?v=T9_IqWa4mJI "")
+[![Test in Euroc dataset V1_03_difficult](https://res.cloudinary.com/marcomontalbano/image/upload/v1612585672/video_to_markdown/images/youtube--T9_IqWa4mJI-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/T9_IqWa4mJI "Test in Euroc dataset V1_03_difficult")
 
 Test for semi-direct method in Euroc dataset:  
-[![](http://img.youtube.com/vi/bfZfZQ-2KLs/0.jpg)](http://www.youtube.com/watch?v=bfZfZQ-2KLs "Image Enhancement for SLAM")
+[![Test for semi-direct method in Euroc dataset](https://res.cloudinary.com/marcomontalbano/image/upload/v1612585723/video_to_markdown/images/youtube--bfZfZQ-2KLs-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/bfZfZQ-2KLs "Test for semi-direct method in Euroc dataset")
 
 ## Contact information ##
 Hanjie Luo [luohanjie@gmail.com](mailto:luohanjie@gmail.com)
