@@ -1,5 +1,11 @@
 # Image Enhancement for SLAM
 
+It was found that the performance of semi-direct method was unsatisfactory when running the v103 data of Euroc dataset. One reason is that the images are too dark with low contrast. Another reason is that the brightness of the images varies greatly (not limited to inter-frame, sometimes there is also inconsistent brightness between left and right images). Therefore, it is necessary to preprocess the input images, improve the contrast of the images, and make make the two images have consistent brightness.
+
+The simplest method to improve the contrast of the images is to use histogram equalization. However, histogram equalization has some obvious drawbacks, such as the loss of details after transformation and unnatural excessive enhancement. For SLAM systems, key points are often extracted on excessively enhanced textures, which we consider to be unstable. Therefore, we need a more advanced image enhancement algorithm for image preprocessing in SLAM.
+
+We proposes an image enhancement algorithm based on the theory of Retinex, which enhances underexposed images, restores the texture in the images, and achieves real-time processing.
+
 在使用Semi-direct Method跑Euroc Dataset的v103数据时，发现效果很不好。导致错误的主要的原因有：图片太暗，对比度太低；图片亮度变化很大（不限于帧间，左右目有时候也会出现亮度不一致的情况）。于是，需要对输入图像进行预处理，提高图片的对比度，并且使得进行跟踪的两张图片亮度一致。
 
 对于提高图片的对比度，最简单的方法是使用直方图均衡化。不过直方图均衡化有一些很明显的缺点，如变换后细节消失；不自然的过分增强。对于SLAM系统，往往会在过份增强的纹理上提取出一些关键点，而这些关键点我们认为是不稳定的。所以，我们需要一种更加先进的图像增强算法用于SLAM的图像预处理。
