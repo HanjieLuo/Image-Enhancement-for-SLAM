@@ -1,25 +1,22 @@
 #ifndef FGS_H
 #define FGS_H
 
-#include <opencv2/opencv.hpp>
-#define CV_CPU_HAS_SUPPORT_SSE2 (cv::checkHardwareSupport(CV_CPU_SSE2))
-// #define CV_SIMD128 0
-#include "opencv2/core/hal/intrin.hpp"
-#include "opencv2/core/hal/intrin_sse.hpp"
-
 #include <stdio.h>
+
 #include <algorithm>
-#include <map>
-#include <vector>
 #include <iostream>
+#include <map>
+#include <opencv2/opencv.hpp>
+#include <vector>
+
+#include "opencv2/core/hal/intrin.hpp"
 
 /** @brief Interface for implementations of Fast Global Smoother filter.
 
 For more details about this filter see @cite Min2014 and @cite Farbman2008 .
 */
-class CV_EXPORTS_W FastGlobalSmootherFilter : public cv::Algorithm
-{
-public:
+class CV_EXPORTS_W FastGlobalSmootherFilter : public cv::Algorithm {
+   public:
     /** @brief Apply smoothing operation to the source image.
 
     @param src source image for filtering with unsigned 8-bit or signed 16-bit or floating-point 32-bit depth and up to 4 channels.
@@ -49,7 +46,7 @@ achieve the same effect. Also, in case of image filtering where source and guide
 propose to dynamically update the guide image after each iteration. To maximize the performance this feature
 was not implemented here.
 */
-CV_EXPORTS_W cv::Ptr<FastGlobalSmootherFilter> createFastGlobalSmootherFilter(cv::InputArray guide, double lambda, double sigma_color, double lambda_attenuation=0.25, int num_iter=3);
+CV_EXPORTS_W cv::Ptr<FastGlobalSmootherFilter> createFastGlobalSmootherFilter(cv::InputArray guide, double lambda, double sigma_color, double lambda_attenuation = 0.25, int num_iter = 3);
 
 /** @brief Simple one-line Fast Global Smoother filter call. If you have multiple images to filter with the same
 guide then use FastGlobalSmootherFilter interface to avoid extra computations.
@@ -69,6 +66,6 @@ it should be 0.25. Setting it to 1.0 may lead to streaking artifacts.
 
 @param num_iter number of iterations used for filtering, 3 is usually enough.
 */
-CV_EXPORTS_W void fastGlobalSmootherFilter(cv::InputArray guide, cv::InputArray src, cv::OutputArray dst, double lambda, double sigma_color, double lambda_attenuation=0.25, int num_iter=3);
+CV_EXPORTS_W void fastGlobalSmootherFilter(cv::InputArray guide, cv::InputArray src, cv::OutputArray dst, double lambda, double sigma_color, double lambda_attenuation = 0.25, int num_iter = 3);
 
 #endif

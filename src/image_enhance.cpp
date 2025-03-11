@@ -1,4 +1,6 @@
-#include "image_enhance/image_enhance.h"
+#include "image_enhance.h"
+
+using namespace image_enhance;
 
 ImageEnhance::ImageEnhance(float gamma,
                            double fgs_lambda,
@@ -212,7 +214,6 @@ void ImageEnhance::ContrastEnhance(const cv::Mat &img_input, cv::Mat &img_output
     cv::LUT(src, lookup_table_, dst);
 
     // cv::imshow("dst", dst);
-
     if (img_input.channels() == 3) {
         hsv_planes[2] = dst;
         merge(hsv_planes, hsv);

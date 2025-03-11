@@ -33,7 +33,7 @@
  *  or tort(including negligence or otherwise) arising in any way out of
  *  the use of this software, even if advised of the possibility of such damage.
  */
-#include "image_enhance/fgs_filter.h"
+#include "fgs_filter.h"
 
 using namespace std;
 using namespace cv;
