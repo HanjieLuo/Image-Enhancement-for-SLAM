@@ -1,16 +1,62 @@
 # Image Enhancement for SLAM
 
-It was found that the performance of semi-direct method was unsatisfactory when running the v103 data of Euroc dataset. One reason is that the images are too dark with low contrast. Another reason is that the brightness of the images varies greatly (not limited to inter-frame, sometimes there is also inconsistent brightness between left and right images). Therefore, it is necessary to preprocess the input images, improve the contrast of the images, and make make the two images have consistent brightness.
+This module provides a high-performance, multi-stage image enhancement pipeline specifically designed to improve the robustness of visual SLAM systems (e.g., semi-direct methods) in challenging lighting conditions.
 
-The simplest method to improve the contrast of the images is to use histogram equalization. However, histogram equalization has some obvious drawbacks, such as the loss of details after transformation and unnatural excessive enhancement. For SLAM systems, key points are often extracted on excessively enhanced textures, which we consider to be unstable. Therefore, we need a more advanced image enhancement algorithm for image preprocessing in SLAM.
+## Motivation
 
-We proposes an image enhancement algorithm based on the theory of Retinex, which enhances underexposed images, restores the texture in the images, and achieves real-time processing.
+Visual SLAM algorithms are highly sensitive to image quality. When processing datasets like EuRoC V103, which feature significant portions with low light, low contrast, and drastic illumination changes (both inter-frame and across stereo pairs), standard feature tracking can degrade or fail entirely.
 
-在使用Semi-direct Method跑Euroc Dataset的v103数据时，发现效果很不好。导致错误的主要的原因有：图片太暗，对比度太低；图片亮度变化很大（不限于帧间，左右目有时候也会出现亮度不一致的情况）。于是，需要对输入图像进行预处理，提高图片的对比度，并且使得进行跟踪的两张图片亮度一致。
+While simple methods like **Histogram Equalization** can increase global contrast, they often introduce undesirable artifacts:
+*   **Loss of Detail**: Nuanced textures can be washed out.
+*   **Unnatural Over-enhancement**: Creates artificial-looking textures where SLAM might extract unstable, non-repeatable keypoints.
+*   **Noise Amplification**: Dark regions become noisy, further degrading feature quality.
 
-对于提高图片的对比度，最简单的方法是使用直方图均衡化。不过直方图均衡化有一些很明显的缺点，如变换后细节消失；不自然的过分增强。对于SLAM系统，往往会在过份增强的纹理上提取出一些关键点，而这些关键点我们认为是不稳定的。所以，我们需要一种更加先进的图像增强算法用于SLAM的图像预处理。
+To address these issues, a more sophisticated approach is required that can enhance local contrast and restore texture details without introducing detrimental artifacts.
 
-本文提出了一种基于Retinex理论的图像增强算法，对欠曝光的图像进行增强, 能够恢复图像中的纹理，并且做到实时处理。
+## Methodology
+
+This implementation is based on the **Retinex theory**, which models an image `I(x,y)` as the product of its illumination `L(x,y)` and reflectance `R(x,y)` components:
+
+`I(x,y) = L(x,y) * R(x,y)`
+
+The core idea is to estimate the illumination map `L` and then recover the reflectance `R`, which represents the intrinsic, lighting-invariant properties of the scene. The enhancement pipeline consists of the following key steps, as implemented in the `ImageEnhance` class:
+
+### Step 1: Illumination Map Estimation via Fast Global Smoother (FGS)
+
+The illumination `L` is assumed to be a smooth, low-frequency representation of the image. Instead of using a simple Gaussian blur, which can cause halo artifacts around strong edges, this algorithm employs the **Fast Global Smoother (FGS)** filter (fgs_filter.h).
+
+*   The FGS is an edge-preserving smoothing filter that effectively separates the low-frequency illumination layer from the high-frequency reflectance (texture) layer.
+*   To improve performance, the filtering is performed on a down-sampled version of the image (`resize_` parameter).
+
+### Step 2: Illumination Adjustment
+
+The estimated illumination map is then adjusted using a **Gamma correction** (`gamma_` parameter). This step non-linearly enhances the illumination, brightening the dark areas more significantly than the already bright ones.
+
+`L_adjusted(x,y) = L(x,y) ^ gamma`
+
+A `gamma` value less than 1.0 increases the overall brightness.
+
+### Step 3: Reflectance Recovery
+
+The enhanced image (i.e., the reflectance map) is recovered by dividing the original image by the adjusted illumination map, following the Retinex model:
+
+`R(x,y) = I(x,y) / L_adjusted(x,y)`
+
+This step effectively removes the non-uniform lighting and reveals the underlying texture details.
+
+### Step 4: Detail Smoothing with Bilateral Filter
+
+The recovered reflectance map may contain some residual noise. A **Bilateral Filter** is applied to smooth the image while preserving important structural edges, resulting in a cleaner final output.
+
+### Step 5: Final Contrast Enhancement (Histogram Clipping)
+
+To produce a visually pleasing result with optimal dynamic range, a final contrast enhancement step (`ContrastEnhance` function) is performed. This is a robust alternative to simple histogram stretching.
+
+*   For color images, the enhancement is applied only to the **Value (V) channel** in the HSV color space to avoid color distortion.
+*   The image's histogram is computed, and the lower and upper bounds (`contrast_to_low_`, `contrast_to_high_`) are clipped based on the cumulative distribution function (CDF). This effectively ignores a small percentage of the darkest and brightest pixels, making the stretching robust to outliers.
+*   The pixel values within the clipped range `[ilow, ihigh]` are then re-mapped to the full `[0, 255]` range, significantly improving the final image contrast.
+
+This multi-stage process ensures that images are enhanced in a way that is both effective for computer vision algorithms and visually natural, providing a solid foundation for robust SLAM tracking.
 
 ## References ## 
 Papers Describing the Approach:
